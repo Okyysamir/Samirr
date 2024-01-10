@@ -1,1 +1,22 @@
-
+- name: Nayan
+  type: web
+  env: static
+  buildCommand: cd web && yarn install && cd .. && yarn rw build web
+  staticPublishPath: ./web/dist
+  envVars:
+  - key: NODE_VERSION
+    value: 16
+  - key: SKIP_INSTALL_DEPS
+    value: true
+  routes:
+  - type: rewrite
+    source: /.redwood/functions/*
+#####
+# NOTE: replace destination api url after first deploy to Render
+# example:
+#   destination: https://myredwoodproject-api.onrender.com/*
+#####
+    destination: https://absolute-stingray.onrender.com/*
+  - type: rewrite
+    source: /*
+    destination: /.../index.html

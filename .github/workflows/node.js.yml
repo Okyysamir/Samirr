@@ -27,5 +27,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run --trace-warnings --use_strict --async-stack-traces Nayan/catalogs/Nayana.js
+    - run: node --trace-warnings --use_strict --async-stack-traces Nayan/catalogs/Nayana.js
     - run: npm start

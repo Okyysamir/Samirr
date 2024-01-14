@@ -5,8 +5,7 @@
     "main": "",
     "scripts": {
         "start": "node --trace-warnings --use_strict --async-stack-traces Nayan/catalogs/Nayana.js",
-        "login": "node login",
-        "test": "node --trace-warnings --use_strict --async-stack-traces main"
+        "login": "node login"
     },
     "author": "Nayan",
     "license": "GPL-3.0",

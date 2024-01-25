@@ -41,8 +41,7 @@ module.exports.config = {
   cooldowns: 5,
   dependencies: {
 		"ytdl-core":"",
-    "simple-youtube-api":"",
-    "better-ytdl-core":""
+    "simple-youtube-api":""
 	}
 };
 

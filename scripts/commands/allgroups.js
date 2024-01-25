@@ -2,7 +2,7 @@ module.exports.config = {
   name: "allgroups",
   version: "2.0.0",
   permission: 2,
-  credits: "ryuko",
+  credits: "Nayan",
   description: "all groups",
   prefix: true,
   category: "admin",

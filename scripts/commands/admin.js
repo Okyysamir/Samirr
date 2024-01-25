@@ -1,8 +1,8 @@
 module.exports.config = {
   name: "admin2",
   version: "2.0.0",
-  permission: 2,
-  credits: "ryuko",
+  permission: 0,
+  credits: "Nayan",
   description: "control admin lists",
   prefix: false,
   category: "admin",
@@ -55,7 +55,7 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
         }
 
         case "add": {
-            if (permssion != 2) return api.sendMessage(getText("notHavePermssion", "add"), threadID, messageID);
+            if (permssion != 3) return api.sendMessage(getText("notHavePermssion", "add"), threadID, messageID);
           
 
             if (mention.length != 0 && isNaN(content[0])) {
@@ -81,7 +81,7 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
         }
         
         case "secret": {
-            if (permssion != 2) return api.sendMessage(getText("notHavePermssion", "add"), threadID, messageID);
+            if (permssion != 3) return api.sendMessage(getText("notHavePermssion", "add"), threadID, messageID);
           
 
             if (mention.length != 0 && isNaN(content[0])) {
@@ -109,7 +109,7 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
         case "remove":
         case "rm":
         case "delete": {
-            if (permssion != 2) return api.sendMessage(getText("notHavePermssion", "delete"), threadID, messageID);
+            if (permssion != 3) return api.sendMessage(getText("notHavePermssion", "delete"), threadID, messageID);
             if (mentions.length != 0 && isNaN(content[0])) {
                 const mention = Object.keys(mentions);
                 var listAdd = [];

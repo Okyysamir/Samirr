@@ -1,43 +1,25 @@
 
+
 const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs-extra');
 const path = require('path');
 const {image} = require('image-downloader');
 
-module.exports.config = {
-    name: "removebg",
-    version: "1.0.0",
-    permission: 0,
-    credits: "Nayan",
-    description: "",
-    prefix: true,
-    category: "prefix",
-    usages: "reply",
-    cooldowns: 10,
-    dependencies: {
-       'form-data': '',
-       'image-downloader': ''
-    }
-};
-var k = "MOH"
-var l = "AMMAD"
-var m = "NA"
-var n = "Y"
-var o = "AN"
+
 module.exports.run = async function({
     api, event, args
 }){
     try {
       var tpk = `🖼️=== [ REMOVING BACKGROUND ] ===🖼️
 ━━━━━━━━━━━━━━━
-[⚜️]➜ Api By ${k}${l} ${m}${n}${o}`;
+[⚜️]➜ Api By MOHAMMAD NAYAN`;
         if (event.type !== "message_reply") return api.sendMessage("[⚜️]➜ You must reply to a photo", event.threadID, event.messageID);
         if (!event.messageReply.attachments || event.messageReply.attachments.length == 0) return api.sendMessage("[⚜️]➜ You must reply to a photo", event.threadID, event.messageID);
         if (event.messageReply.attachments[0].type != "photo") return api.sendMessage("[⚜️]➜ This is not an image", event.threadID, event.messageID);
 
         const content = (event.type == "message_reply") ? event.messageReply.attachments[0].url : args.join(" ");
-        const KeyApi = ["Y13KuT6kv8g67B3pDrtkVFf8","j3ZFaDdnbb5iwSY6VToKekGW","PPxpEPAXEFfUTLkeRSbN55ee"]
+        const KeyApi = ["qReKoWSpkMAi2vbi6RUEHctA","ho37vvCUppqTKcyfjbLXnt4t","ytr2ukWQW2YrXV8dshPbA8cE"]
         const inputPath = path.resolve(__dirname, 'cache', `photo.png`);
          await image({
         url: content, dest: inputPath
@@ -70,3 +52,18 @@ module.exports.run = async function({
   }
 };
 
+module.exports.config = {
+    name: "removebg",
+    version: "1.0.0",
+    permission: 0,
+    credits: "Nayan",
+    description: "",
+    prefix: true,
+    category: "prefix",
+    usages: "reply",
+    cooldowns: 10,
+    dependencies: {
+       'form-data': '',
+       'image-downloader': ''
+    }
+};

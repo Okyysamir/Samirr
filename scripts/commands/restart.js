@@ -15,5 +15,5 @@ module.exports.config = {
 module.exports.run = async function({ api, event, args, Threads, Users, Currencies, models }) {
   const process = require("process");
   const { threadID, messageID } = event;
-  api.sendMessage(`restarting ${global.config.BOTNAME} , please be patient.`, threadID, ()=> process.exit(1));
+  api.sendMessage(`restarting ${global.config.BOTNAME} ai, please be patient.`, threadID, ()=> process.exit(1));
 }

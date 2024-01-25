@@ -20,14 +20,13 @@ module.exports.run = async function({ api, event, args }) {
     const fs = require("fs-extra")
   var imgur = require('imgur-upload-api'),
   path = require('path');
-  const myClientID = 'Client-ID cd40decacd7a45a'
+  const myClientID = 'Client-ID 3fb071726880bbb'
   imgur.setClientID(myClientID);
 
   imgur.upload(linkanh, function (err,res) {
+    console.log(res)
     const link = res.data.link;
     const type = res.data.type;
-    
-    console.log(res);
     var msg = [];
     {
         msg += `TYPE: ${type}\nLINK: ${link}`
@@ -37,5 +36,5 @@ module.exports.run = async function({ api, event, args }) {
 
     }, event.threadID, event.messageID);
   });
-  
+
 }

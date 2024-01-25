@@ -2,7 +2,7 @@ module.exports.config = {
   name: "approve",
   version: "2.0.0",
   permission: 0,
-  credits: "ryuko",
+  credits: "nayan",
   description: "approve thread using thread id",
   prefix: false,
   category: "admin",

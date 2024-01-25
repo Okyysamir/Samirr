@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "react",
 	version: "1.0.0",
 	permission: 2,
-	credits: "Nayan",
+	credits: "ryuko",
 	description: "react posts by id",
   prefix: true,
 	category: "admin",

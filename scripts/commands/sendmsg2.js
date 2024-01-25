@@ -2,16 +2,16 @@ const fs = require('fs');
 const request = require('request');
 
 module.exports.config = {
-    name: "operatornoti",
-    version: "1.0.0",
-    permission: 3,
-    credits: "NAYAN",
-    description: "",
-    prefix: true,
-    category: "operator",
-    usages: "[msg]",
+  name: "sendmsg",
+	version: "0.0.2",
+	permission: 2,
+  prefix: true,
+	credits: "Nayan",
+	description: "sendmsg",
+	category: "admin",
+	usages: "sendmsg [user]/[thread] id msg",
     cooldowns: 5,
-}
+};
 
 let atmDir = [];
 
@@ -39,16 +39,15 @@ const getAtm = (atm, body) => new Promise(async (resolve) => {
     resolve(msg);
 })
 
-module.exports.handleReply = async function ({ api, event, handleReply, Users, Threads, getText }) {
-    
+module.exports.handleReply = async function ({ api, event, handleReply, Users, Threads }) {
     const moment = require("moment-timezone");
-      var gio = moment.tz("Asia/Dhaka").format("DD/MM/YYYY - HH:mm:s");
+      var gio = moment.tz("Asia/Manila").format("DD/MM/YYYY - HH:mm:s");
     const { threadID, messageID, senderID, body } = event;
     let name = await Users.getNameUser(senderID);
     switch (handleReply.type) {
         case "sendnoti": {
-            let text = `${name} replied to your announce\n\ntime : ${gio}\nreply : ${body}\n\nfrom group : ${(await Threads.getInfo(threadID)).threadName || "unknown"}`;
-            if(event.attachments.length > 0) text = await getAtm(event.attachments, `${body}${name} replied to your announce\n\ntime : ${gio}\n\nfrom group : ${(await Threads.getInfo(threadID)).threadName || "unknown"}`);
+            let text = `====== [ User Reply ] ======\n--------------\n『𝗧𝗶𝗺𝗲』: ${gio}\n\n--------------\n『Reply』 : ${body}\n\n--------------\nUser Name ${name}  From Group ${(await Threads.getInfo(threadID)).threadName || "Unknow"}`;
+            if(event.attachments.length > 0) text = await getAtm(event.attachments, `====== [ User Reply ] ======\n--------------\n『𝗧𝗶𝗺𝗲』: ${gio}\n\n--------------\n『Reply』 : ${body}\n\n--------------\nUser Name: ${name} From Group ${(await Threads.getInfo(threadID)).threadName || "Unknow"}`);
             api.sendMessage(text, handleReply.threadID, (err, info) => {
                 atmDir.forEach(each => fs.unlinkSync(each))
                 atmDir = [];
@@ -63,8 +62,8 @@ module.exports.handleReply = async function ({ api, event, handleReply, Users, T
             break;
         }
         case "reply": {
-            let text = `operator ${name} replied to you\n\nreply : ${body}\n\nreply to this message if you want to respond again.`;
-            if(event.attachments.length > 0) text = await getAtm(event.attachments, `${body}${name} replied to you\n\nreply to this message if you want to respond again.`);
+            let text = `==== [MESSAGE FROM 𝑨𝑫𝑴𝑰𝑵 ] ====\n--------------\n『𝗧𝗶𝗺𝗲』: ${gio}\n\n--------------\n『Message』 : ${body}\n\n--------------\n『Admin Name』 ${name}\n--------------\nReply to this Message if you want to respond to this Announce`;
+            if(event.attachments.length > 0) text = await getAtm(event.attachments, `${body}==== [ MESSAGE FROM 𝑨𝑫𝑴𝑰𝑵 ] ====\n--------------\n『𝗧𝗶𝗺𝗲』: ${gio}\n\n--------------\n『Admin Name』 ${name}\n--------------\nReply to this Message if you want to respond to this Announce.`);
             api.sendMessage(text, handleReply.threadID, (err, info) => {
                 atmDir.forEach(each => fs.unlinkSync(each))
                 atmDir = [];
@@ -84,11 +83,11 @@ module.exports.run = async function ({ api, event, args, Users }) {
     const moment = require("moment-timezone");
       var gio = moment.tz("Asia/Manila").format("DD/MM/YYYY - HH:mm:s");
     const { threadID, messageID, senderID, messageReply } = event;
-    if (!args[0]) return api.sendMessage("please input message", threadID);
+    if (!args[0]) return api.sendMessage("Please input message", threadID);
     let allThread = global.data.allThreadID || [];
     let can = 0, canNot = 0;
-    let text = `message from bot operators\n\ntime : ${gio}\noperator name : ${await Users.getNameUser(senderID)}\nmessage : ${args.join(" ")}\n\nreply to this message if you want to respond from this announce.`;
-    if(event.type == "message_reply") text = await getAtm(messageReply.attachments, `message from bot operators\n\ntime : ${gio}\noperator name : ${await Users.getNameUser(senderID)}\nmessage : ${args.join(" ")}\n\nreply to this message if you want to respond from this announce.`);
+    let text = `====== [ MESSAGE FROM ADMIN ] ======\n--------------\n『𝗧𝗶𝗺𝗲』: ${gio}\n\n--------------\n『MESSAGE』 : ${args.join(" ")}\n\n--------------\n『ADMIN NAME』 ${await Users.getNameUser(senderID)} \n--------------\nReply to this Message if you want to respond to this Announce`;
+    if(event.type == "message_reply") text = await getAtm(messageReply.attachments, `====== [ MESSAGE FROM ADMIN ] ======\n--------------\n『𝗧𝗶𝗺𝗲』: ${gio}\n\n--------------\n『MESSAGE』 : ${args.join(" ")}\n\n--------------\n『ADMIN NAME』 ${await Users.getNameUser(senderID)}\n--------------\nReply to this Message if you want to respond to this Announce`);
     await new Promise(resolve => {
         allThread.forEach((each) => {
             try {
@@ -111,5 +110,5 @@ module.exports.run = async function ({ api, event, args, Users }) {
             } catch(e) { console.log(e) }
         })
     })
-    api.sendMessage(`send to ${can} thread, not send to ${canNot} thread`, threadID);
-}
+    api.sendMessage(`Send to ${can} thread, not send to ${canNot} thread`, threadID);
+                      }

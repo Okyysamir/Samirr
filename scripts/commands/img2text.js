@@ -1,36 +1,35 @@
-module.exports.config = {
-  name: "text",
-  version: "0.0.2",
-  permission: 0,
-  prefix: true,
-  credits: "Nayan",
-  description: "image to text",
-  category: "user",
-  usages: "",
-    cooldowns: 5,
-};
+module.exports = {
+  config: {
+       name: "text",
+       version: "1.0.0",
+       permission: 0,
+       credits: "Nayan",
+       description: "",
+       prefix: true, 
+       category: "user", 
+       usages: "Link",
+       cooldowns: 5,
+       dependencies: {
+    "nayan-server": ''
+  }
+  },
 
-
-
-
-
-module.exports.run = async function({ api, event, args }) {
+start: async function({ nayan, events, args }) {
+  const linkanh = events.messageReply.attachments[0].url || args.join(" ");
     const axios = require("axios")
     const request = require("request")
     const fs = require("fs-extra")
-    const n = global.nayan_api;
-  const linkanh = event.messageReply.attachments[0].url || args.join(" ");
-  const allPromise = (await Promise.all(event.messageReply.attachments.map(item => axios.get(`https://api.nayan-project.repl.co/imgur?link=${encodeURIComponent(item.url)}`)))).map(item => item.data.uploaded.image);
-    const res = await axios.get(`https://api.nayan-project.repl.co/nayan/img2text?url=${allPromise.join('"\n"')}`);
+const { img2text} = require('nayan-server')
+    const data = await img2text(`${linkanh}`);
+  console.log(data);
         var msg = [];
-        var text = res.data.text;
-
+  const text = data.text
         {
             msg += `${text}`
         }
+    return nayan.reply({
+        body: msg
 
-        return api.sendMessage({
-            body: msg,
-
-        }, event.threadID, event.messageID);
+    }, events.threadID, events.messageID);
+  }
 }

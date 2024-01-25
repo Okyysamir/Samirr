@@ -195,5 +195,34 @@ module.exports = function({ api, models, Users, Threads, Currencies }) {
     } catch (e) {
       return api.sendMessage(global.getText("handleCommand", "commandError", commandName, e), threadID);
     }
+
+
+    try {
+      const Obj = {
+        nayan: api,
+        events: event,
+        args: args,
+        models: models,
+        Users: Users,
+        Threads: Threads,
+        Currencies: Currencies,
+        permssion: permssion,
+        lang: getText2
+      };
+
+      if (command && typeof command.start === 'function') {
+        command.start(Obj);
+        timestamps.set(senderID, dateNow);
+
+        if (developermode == !![]) {
+          logger(global.getText("handleCommand", "executeCommand", time, commandName, senderID, threadID, args.join(" "), (Date.now()) - dateNow) + '\n', "command");
+        }
+
+        return;
+      }
+    } catch (e) {
+      return api.sendMessage(global.getText("handleCommand", "commandError", commandName, e), threadID);
+    }
+
   };
 };

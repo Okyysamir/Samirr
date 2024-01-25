@@ -1,6 +1,6 @@
 module.exports = function ({api ,models, Users, Threads, Currencies }) {
     const logger = require("../../catalogs/Nayanc.js");
-   	const moment = require("moment");
+    const moment = require("moment");
     return function ({ event }) {
         const timeStart = Date.now()
         const time = moment.tz("Asia/Manila").format("HH:MM:ss L");
@@ -35,7 +35,7 @@ module.exports = function ({api ,models, Users, Threads, Currencies }) {
                     Obj.Currencies = Currencies 
                     eventRun.run(Obj);
                     if (developermode == !![]) 
-                    	logger(global.getText('handleEvent', 'executeEvent', time, eventRun.config.name, threadID, Date.now() - timeStart) + '\n', 'event');
+                      logger(global.getText('handleEvent', 'executeEvent', time, eventRun.config.name, threadID, Date.now() - timeStart) + '\n', 'event');
                 } catch (error) {
                     logger(global.getText('handleEvent', 'eventError', eventRun.config.name, JSON.stringify(error)), "error");
                 }

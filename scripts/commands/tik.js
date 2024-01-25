@@ -1,4 +1,5 @@
-module.exports.config = {
+module.exports = {
+config: {
   name: "tik",
   version: "2.0.0",
   permission: 0,
@@ -9,18 +10,20 @@ module.exports.config = {
   usages: "link",
   cooldowns: 5,
   dependencies: {
-        'image-downloader': '',
+        'nayan-server': '',
   }
-};
-module.exports.run = async function({ api, event, args }) {
+},
   
-  api.setMessageReaction("😘", event.messageID, (err) => {
+start: async function({ nayan, events, args }) {
+  
+  nayan.setMessageReaction("😘", events.messageID, (err) => {
   }, true);
-  api.sendTypingIndicator(event.threadID, true);
+  nayan.sendTypingIndicator(events.threadID, true);
   
-  const { messageID, threadID } = event;
-  const { nayan } = global.apiNayan;
-  const n = global.nayan_api
+  const { messageID, threadID } = events;
+
+  
+  const { tikdown } = require("nayan-media-downloader")
   const fs = require("fs");
   const axios = require("axios");
   const request = require("request");
@@ -31,14 +34,15 @@ module.exports.run = async function({ api, event, args }) {
   if (!args[0]) return api.sendMessage("[ ! ] Input link.", threadID, messageID);
 
   const content = args.join(" ");
-  if (!args[1]) api.sendMessage(`𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐈𝐍𝐆 𝐕𝐈𝐃𝐄𝐎 𝐅𝐎𝐑 𝐘𝐎𝐔\n\n𝐏𝐋𝐄𝐀𝐒𝐄 𝐖𝟖...`, event.threadID, (err, info) => setTimeout(() => { api.unsendMessage(info.messageID) }, 20000));
+  if (!args[1]) nayan.reply(`𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐈𝐍𝐆 𝐕𝐈𝐃𝐄𝐎 𝐅𝐎𝐑 𝐘𝐎𝐔\n\n𝐏𝐋𝐄𝐀𝐒𝐄 𝐖𝟖...`, events.threadID, (err, info) => setTimeout(() => { nayan.unsendMessage(info.messageID) }, 20000));
 
  try {
-  const res = await axios.get(`https://api.nayan-project.repl.co/tiktok/downloadvideo?url=${content}`);
-
+  const res = await tikdown(`${content}`);
+console.log(res)
    var file = fs.createWriteStream(__dirname + '/cache/tik.mp4');
    
-        const { play, author, digg_count, comment_count, play_count, share_count, download_count, title, duration, region } = res.data.data;
+        const play = res.data.video
+   const title = res.data.title
         const rqs = request(encodeURI(`${play}`));
    
     
@@ -48,13 +52,14 @@ module.exports.run = async function({ api, event, args }) {
     
     setTimeout(function() {
       
-      return api.sendMessage({
-        body: `====[ 𝐓𝐈𝐊𝐓𝐎𝐊 𝐕𝐈𝐃𝐄𝐎 ]====\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🌎 𝐂𝐎𝐔𝐍𝐓𝐑𝐘: ${region}\n📱 𝐍𝐈𝐂𝐊𝐍𝐀𝐍𝐄: ${author.nickname}\n🎐 𝐔𝐒𝐄𝐑 𝐍𝐀𝐌𝐄: ${author.unique_id}\n👁 𝐕𝐈𝐄𝐖𝐒: ${digg_count}\n💭 𝐂𝐎𝐌𝐌𝐄𝐍𝐓: ${comment_count}\n👀 𝐏𝐋𝐀𝐘: ${play_count}\n🔗 𝐒𝐇𝐀𝐑𝐄: ${share_count}\n📥 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃: ${download_count}\n⏱ 𝐏𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠 𝐓𝐢𝐦𝐞: ${duration} second\n💬 𝗧𝗶𝘁𝗹𝗲: ${title}`,
+      return nayan.reply({
+        body: `TITLE: ${title}`,
         attachment: fs.createReadStream(__dirname + '/cache/tik.mp4')
       }, threadID, messageID)
     }, 5000)
   })
     } catch (err) {
-    api.sendMessage(`${error}`, event.threadID, event.messageID);  
+    nayan.reply(`${error}`, events.threadID, events.messageID);  
    }
+}
 };

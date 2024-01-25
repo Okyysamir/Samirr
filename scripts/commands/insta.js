@@ -1,6 +1,6 @@
 module.exports = {
   config:{
-    name: "fbvideo",
+    name: "insta",
     version: "0.0.2",
     permission: 0,
     prefix: true,
@@ -43,9 +43,9 @@ console.log(res)
     let imgs1 = (await axios.get(`${img1}`, {
         responseType: 'arraybuffer'
     })).data;
-    fs.writeFileSync(__dirname + "/cache/fbvideo.mp4", Buffer.from(imgs1, "utf-8"));
+    fs.writeFileSync(__dirname + "/cache/insta.mp4", Buffer.from(imgs1, "utf-8"));
     var allimage = [];
-    allimage.push(fs.createReadStream(__dirname + "/cache/fbvideo.mp4"));
+    allimage.push(fs.createReadStream(__dirname + "/cache/insta.mp4"));
 
     {
         msg += lang("down")

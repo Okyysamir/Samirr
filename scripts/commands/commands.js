@@ -2,7 +2,7 @@ module.exports.config = {
     name: "command",
     version: "1.0.0",
     permission: 2,
-    credits: "ryuko",
+    credits: "nayan",
     description: "manage/control all bot modules",
     prefix: true,
     category: "operator",
@@ -15,7 +15,8 @@ module.exports.config = {
     }
 };
 
-const loadCommand = function ({ moduleList, threadID, messageID, getText }) {
+const loadCommand = function ({ moduleList,  threadID, messageID, getText }) {
+  const event = global.event
     let operator = global.config.OPERATOR;
             if (!operator.includes(event.senderID)) return api.sendMessage(`only bot operators can use this command.`, event.threadID, event.messageID);
     const { execSync } = global.nodemodule['child_process'];

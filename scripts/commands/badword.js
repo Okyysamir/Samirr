@@ -70,7 +70,7 @@ module.exports.run = async function ({ api, args, event }) {
     if (!content) return api.sendMessage(`Missing content!`, event.threadID, event.messageID);
     var data = JSON.parse(fs.readFileSync(path.join(__dirname, "./cache/badwords.json"), { encoding: "utf8" }));
 
-    if (!args[0]) return api.sendMessage(`Usage:\nbadwords add [word]\n\nAuthor: shiki`, event.threadID, event.messageID);
+    if (!args[0]) return api.sendMessage(`Usage:\nbadwords add [word]`, event.threadID, event.messageID);
 
     if (args[0] == "add") {
         if (!content) return api.sendMessage(`Missing word to add!`, event.threadID, event.messageID);

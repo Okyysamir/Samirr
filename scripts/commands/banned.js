@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "banned",
 	version: "1.0.0",
 	permission: 2,
-	credits: "NTKhang",
+	credits: "unknown",
   prefix: false,
 	description: "ban list",
 	category: "admin",
@@ -29,7 +29,7 @@ module.exports.run = async function({api, args, Users, event, Threads, client}) 
 				.name;
 			msg += `${i+1}. Name: ${name}\nID: ${listuserbanned[i].id}\n`
 		}
-		msg == "" ? api.sendMessage("Hiện tại không có user nào bị ban", event.threadID, event.messageID) : api.sendMessage("❎Những user đã bị ban khỏi hệ thống bot gồm:\n\n" + msg, event.threadID, event.messageID);
+		msg == "" ? api.sendMessage("Currently no user is banned", event.threadID, event.messageID) : api.sendMessage("❎Users who have been banned from the system include bots:\n\n" + msg, event.threadID, event.messageID);
 	}
 	else if (args[0] == "thread") {
 		var list = global.data.threadBanned || [];
@@ -49,7 +49,7 @@ module.exports.run = async function({api, args, Users, event, Threads, client}) 
 				.threadName;
 			msg += `${i+1}. Name: ${namethread}\nID: ${listthreadbanned[i].id}`;
 		}
-		msg.length == 0 ? api.sendMessage("Hiện tại không có thread nào bị ban,", event.threadID, event.messageID) : api.sendMessage("❎Những thread đã bị ban khỏi hệ thống bot gồm:\n\n" + msg, event.threadID, event.messageID);
+		msg.length == 0 ? api.sendMessage("No thread is currently banned", event.threadID, event.messageID) : api.sendMessage("❎Those threads that have been banned from the system include bots:\n\n" + msg, event.threadID, event.messageID);
 	}
-	else api.sendMessage("Sai cú pháp", event.threadID, event.messageID);
+	else api.sendMessage("error", event.threadID, event.messageID);
 }

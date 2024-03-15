@@ -90,7 +90,7 @@ let path = __dirname + `/cache/help.png`;
 
 
     const text = `╰➤ 𝗧𝗢𝗧𝗔𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗 ${arrayInfo.length}\n𝗨𝗦𝗘【 ${prefix}Help 】𝐏𝐀𝐆𝐄 𝐍𝐎.\n╰➤ «𝐍𝐔𝐌𝐁𝐄𝐑 𝐎𝐅 𝐏𝐀𝐆𝐄» ${page}
-╰➤ https://www.facebook.com/www.xnxx.com169`;
+╰➤ https://www.facebook.com/profile.php?id=61555407236319`;
     return api.sendMessage(`╭──«~»──CMD──«~»──╮\n\nPAGE ${page}/${Math.ceil(arrayInfo.length/numberOfOnePage)}` + "\n" + msg + "\n" + text, threadID, async (error, info) => {
       if (autoUnsend) {
         await new Promise(resolve => setTimeout(resolve, delayUnsend * 100000));

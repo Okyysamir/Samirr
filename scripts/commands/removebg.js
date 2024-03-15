@@ -13,7 +13,7 @@ module.exports.run = async function({
     try {
       var tpk = `🖼️=== [ REMOVING BACKGROUND ] ===🖼️
 ━━━━━━━━━━━━━━━
-[⚜️]➜ Api By MOHAMMAD NAYAN`;
+[⚜️]➜ Api By MOHAMMAD samir`;
         if (event.type !== "message_reply") return api.sendMessage("[⚜️]➜ You must reply to a photo", event.threadID, event.messageID);
         if (!event.messageReply.attachments || event.messageReply.attachments.length == 0) return api.sendMessage("[⚜️]➜ You must reply to a photo", event.threadID, event.messageID);
         if (event.messageReply.attachments[0].type != "photo") return api.sendMessage("[⚜️]➜ This is not an image", event.threadID, event.messageID);
@@ -48,7 +48,7 @@ module.exports.run = async function({
             });
      } catch (e) {
         console.log(e)
-        return api.sendMessage(`[⚜️]➜ Nayan Server Is Busy Now`, event.threadID, event.messageID);
+        return api.sendMessage(`[⚜️]➜ SAMIR Server Is Busy Now`, event.threadID, event.messageID);
   }
 };
 

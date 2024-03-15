@@ -6,7 +6,7 @@
   "language": "en",
   "notification": true,
   "approval": false,
-  "BOTNAME": "SAMIR-BOT",
+  "BOTNAME": "SAMIR",
   "PREFIX": "/",
   "OPERATOR": [
     "",
